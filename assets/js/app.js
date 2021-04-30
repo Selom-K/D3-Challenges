@@ -42,4 +42,39 @@ d3.csv("/assets/data/data.csv").then(function(stateData) {
 // Updating axis functions
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
-    
+
+    chartGroup.append("g")
+        .attr("transform", `translate(0, ${height})`)
+        .call(bottomAxis);
+    chartGroup.append("g")
+        .call(leftAxis);
+
+    // Creating circles    
+    var circlesGroup = chartGroup.selectAll("circle")
+        .data(stateData)
+        .enter()
+        .append("circle")
+        .attr("cx", d => xLinearScale(d.poverty))
+        .attr("cy", d => yLinearScale(d.healthcare))
+        .attr("r", 10)
+        .attr("fill", "darkblue")
+        .attr("opacity", ".6")
+        .attr("stroke", "white");
+
+        chartGroup.append("text")
+        .style("text-anchor", "middle")
+        .style("font-family", "sans-serif")
+        .style("font-size", "8px")
+        .selectAll("tspan")
+        .data(stateData)
+        .enter()
+        .append("tspan"
+        .attr("x", function(data) {
+            return xLinearScale(data.poverty);
+        })
+        .attr("y", function(data) {
+            return yLinearScale(data.healthcare -.02);
+        })
+        .text(function(data) {
+            return data.abbr
+        });
