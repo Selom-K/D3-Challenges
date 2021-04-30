@@ -90,5 +90,15 @@ d3.csv("/assets/data/data.csv").then(function(stateData) {
             return (`${d.state}<br>Population In Poverty (%): ${d.poverty}<br>Lacks Healthcare (%): ${d.healthcare}`)
         });
     chartGroup.call(toolTip);
+    
+    // onmouseover event
+    circlesGroup.on("mouseover", function(data) {
+        toolTip.show(data, this);
+    })
+
+    // onmouseout event
+        .on("mouseout", function(data, index) {
+            toolTip.hide(data);
+        });
 
 
