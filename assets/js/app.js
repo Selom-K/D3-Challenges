@@ -31,4 +31,10 @@ d3.csv("/assets/data/data.csv").then(function(stateData) {
         data.healthcare = +data.healthcare;
     });
 
-});
+// Upadating scaling functions
+    var xLinearScale = d3scaleLinear()
+        .domain([9, d3.max(stateData, d => d.poverty)])
+        .range([0, width]);
+    var yLinearScale = d3scaleLinear()
+        .domain([4, d3.max(stateData, d => d.healthcare)])
+        .range([height, 0]);
