@@ -78,3 +78,17 @@ d3.csv("/assets/data/data.csv").then(function(stateData) {
         .text(function(data) {
             return data.abbr
         });
+
+    // Adding tooltips to the chart
+    var toolTip = d3.tip()
+        .attr("class", "tooltip")  
+        .offset([80, -70])
+        .style("position", "absolute")
+        .style("background", "lightsteelblue")  
+        .style("pointer-events", "none")
+        .html(function(d) {
+            return (`${d.state}<br>Population In Poverty (%): ${d.poverty}<br>Lacks Healthcare (%): ${d.healthcare}`)
+        });
+    chartGroup.call(toolTip);
+
+
